@@ -1,0 +1,15 @@
+{
+    "name": "Attendance",
+    "alias": "attendance",
+    "description": "Attendance module: collect punches from ZKTeco devices (push/pull/import), shifts, daily late/overtime computation, and reporting.",
+    "keywords": ["hms", "hospital", "attendance", "zkteco", "biometric", "shifts"],
+    "priority": 20,
+    "providers": [
+        "Modules\\Attendance\\Providers\\AttendanceServiceProvider"
+    ],
+    "files": [],
+    "requires": [
+        "Modules\\Core",
+        "Modules\\Staff"
+    ]
+}

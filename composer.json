@@ -1,0 +1,39 @@
+{
+    "name": "flowrise-hms/attendance",
+    "description": "Attendance module for Flowrise HMS: ZKTeco punch ingestion, shifts, daily computation, and Filament UI.",
+    "type": "laravel-module",
+    "keywords": ["hms", "hospital", "attendance", "zkteco", "biometric", "shifts"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Flowrise Digital",
+            "homepage": "https://github.com/Flowrise-HMS",
+            "email": "flowrisedigitals@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.4",
+        "flowrise-hms/core": "dev-main",
+        "flowrise-hms/staff": "dev-main"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Attendance\\": "app/",
+            "Modules\\Attendance\\Database\\Factories\\": "database/factories/",
+            "Modules\\Attendance\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Attendance\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
