@@ -7,6 +7,8 @@ use Modules\Attendance\Models\AttendanceRecord;
 
 class PunchesPerHourChartWidget extends BarChartWidget
 {
+    protected static bool $isDiscovered = false;
+
     protected ?string $heading = 'Punches per hour (today)';
 
     protected static ?int $sort = 2;

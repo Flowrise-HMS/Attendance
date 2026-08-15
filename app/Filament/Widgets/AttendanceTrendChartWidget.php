@@ -9,6 +9,8 @@ use Modules\Attendance\Models\DailyAttendance;
 
 class AttendanceTrendChartWidget extends LineChartWidget
 {
+    protected static bool $isDiscovered = false;
+
     protected ?string $heading = 'Daily attendance trend (14 days)';
 
     protected static ?int $sort = 3;

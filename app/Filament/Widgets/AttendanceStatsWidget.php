@@ -11,6 +11,8 @@ use Modules\Attendance\Models\DailyAttendance;
 
 class AttendanceStatsWidget extends BaseWidget
 {
+    protected static bool $isDiscovered = false;
+
     protected static ?int $sort = 1;
 
     protected function getStats(): array

@@ -1,7 +1,8 @@
 <?php
 
-namespace Modules\Attendance\Filament\Pages;
+namespace Modules\Attendance\Filament\Clusters\Attendance\Pages;
 
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
@@ -16,6 +17,8 @@ use Modules\Core\Enums\NavigationGroup;
 
 class ManageAttendanceSettings extends SettingsPage
 {
+    use HasPageShield;
+
     protected static ?string $cluster = AttendanceCluster::class;
 
     protected static string $settings = AttendanceSettings::class;
@@ -25,11 +28,6 @@ class ManageAttendanceSettings extends SettingsPage
     protected static string|\UnitEnum|null $navigationGroup = NavigationGroup::SETTINGS;
 
     protected static ?string $navigationLabel = 'Attendance';
-
-    public static function canAccess(): bool
-    {
-        return auth()->user()?->can('manage_attendance_settings') ?? false;
-    }
 
     public function form(Schema $schema): Schema
     {

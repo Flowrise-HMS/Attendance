@@ -7,6 +7,8 @@ use Modules\Attendance\Models\DailyAttendance;
 
 class LateVsOvertimeChartWidget extends BarChartWidget
 {
+    protected static bool $isDiscovered = false;
+
     protected ?string $heading = 'Late vs overtime (14 days)';
 
     protected static ?int $sort = 4;

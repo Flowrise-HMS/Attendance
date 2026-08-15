@@ -6,7 +6,5 @@ return [
         'import_attendance_records' => 'Import Attendance Records',
         'override_daily_attendance_status' => 'Override Daily Attendance Status',
         'export_daily_attendance' => 'Export Daily Attendance',
-        'view_attendance_dashboard' => 'View Attendance Dashboard',
-        'manage_attendance_settings' => 'Manage Attendance Settings',
     ],
 ];

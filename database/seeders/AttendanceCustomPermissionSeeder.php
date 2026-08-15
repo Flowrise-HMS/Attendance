@@ -20,8 +20,6 @@ class AttendanceCustomPermissionSeeder extends Seeder
         'import_attendance_records' => ['super_admin', 'admin'],
         'override_daily_attendance_status' => ['super_admin', 'admin'],
         'export_daily_attendance' => ['super_admin', 'admin'],
-        'view_attendance_dashboard' => ['super_admin', 'admin', 'supervisor'],
-        'manage_attendance_settings' => ['super_admin'],
     ];
 
     public function run(): void
@@ -29,10 +27,9 @@ class AttendanceCustomPermissionSeeder extends Seeder
         app(PermissionRegistrar::class)->forgetCachedPermissions();
 
         foreach ($this->matrix as $name => $roles) {
-            $perm = Permission::query()->where(['name' => $name, 'guard_name' => 'web'])->first();
-            if (! $perm) {
-                continue;
-            }
+            $perm = Permission::query()->firstOrCreate(
+                ['name' => $name, 'guard_name' => 'web']
+            );
 
             foreach ($roles as $roleName) {
                 Role::query()

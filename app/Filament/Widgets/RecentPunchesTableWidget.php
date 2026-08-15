@@ -9,6 +9,8 @@ use Modules\Attendance\Models\AttendanceRecord;
 
 class RecentPunchesTableWidget extends TableWidget
 {
+    protected static bool $isDiscovered = false;
+
     protected int|string|array $columnSpan = 'full';
 
     protected static ?int $sort = 5;

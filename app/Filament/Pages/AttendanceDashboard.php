@@ -2,6 +2,7 @@
 
 namespace Modules\Attendance\Filament\Pages;
 
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
 use Modules\Attendance\Filament\Clusters\Attendance\AttendanceCluster;
@@ -14,6 +15,8 @@ use Modules\Core\Enums\NavigationGroup;
 
 class AttendanceDashboard extends Page
 {
+    use HasPageShield;
+
     protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedChartBar;
 
     protected static string|\UnitEnum|null $navigationGroup = NavigationGroup::ADMINISTRATION;
@@ -26,12 +29,10 @@ class AttendanceDashboard extends Page
 
     protected static ?string $slug = 'attendance-dashboard';
 
-    public static function canAccess(): bool
-    {
-        return auth()->user()?->can('view_attendance_dashboard') ?? false;
-    }
-
-    public function getWidgets(): array
+    /**
+     * @return array<class-string>
+     */
+    protected function getHeaderWidgets(): array
     {
         return [
             AttendanceStatsWidget::class,
@@ -40,6 +41,11 @@ class AttendanceDashboard extends Page
             LateVsOvertimeChartWidget::class,
             RecentPunchesTableWidget::class,
         ];
+    }
+
+    public function getHeaderWidgetsColumns(): int|array
+    {
+        return 2;
     }
 
     public function getTitle(): string

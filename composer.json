@@ -13,6 +13,7 @@
     ],
     "require": {
         "php": "^8.4",
+        "jmrashed/zkteco": "^2.1",
         "flowrise-hms/core": "dev-main",
         "flowrise-hms/staff": "dev-main"
     },
