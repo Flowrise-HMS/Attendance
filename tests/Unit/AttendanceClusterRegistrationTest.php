@@ -3,16 +3,16 @@
 use Modules\Attendance\Filament\Clusters\Attendance\AttendanceCluster;
 use Modules\Attendance\Filament\Clusters\Attendance\Pages\ManageAttendanceSettings;
 use Modules\Attendance\Filament\Pages\AttendanceDashboard;
-use Modules\Attendance\Filament\Widgets\AttendanceStatsWidget;
-use Modules\Attendance\Filament\Widgets\AttendanceTrendChartWidget;
-use Modules\Attendance\Filament\Widgets\LateVsOvertimeChartWidget;
-use Modules\Attendance\Filament\Widgets\PunchesPerHourChartWidget;
-use Modules\Attendance\Filament\Widgets\RecentPunchesTableWidget;
 use Modules\Attendance\Filament\Resources\AttendanceMachineResource;
 use Modules\Attendance\Filament\Resources\AttendanceRecordResource;
 use Modules\Attendance\Filament\Resources\AttendanceShiftAssignmentResource;
 use Modules\Attendance\Filament\Resources\AttendanceShiftResource;
 use Modules\Attendance\Filament\Resources\DailyAttendanceResource;
+use Modules\Attendance\Filament\Widgets\AttendanceStatsWidget;
+use Modules\Attendance\Filament\Widgets\AttendanceTrendChartWidget;
+use Modules\Attendance\Filament\Widgets\LateVsOvertimeChartWidget;
+use Modules\Attendance\Filament\Widgets\PunchesPerHourChartWidget;
+use Modules\Attendance\Filament\Widgets\RecentPunchesTableWidget;
 use Tests\TestCase;
 
 uses(TestCase::class);
