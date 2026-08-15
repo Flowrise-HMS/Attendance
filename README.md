@@ -182,7 +182,7 @@ Schedules are defined module-side via `configureSchedules()`; no changes to `boo
 
 ## Filament UI
 
-Filament components are **not** clusterised (a deliberate, documented deviation from module conventions). Resources/pages/widgets live standalone under `app/Filament/{Resources,Pages,Widgets}` and set their own `$navigationGroup`.
+All resources and pages are registered under the `AttendanceCluster` (slug `attendance-cluster`) via the `$cluster` property — files remain in `app/Filament/{Resources,Pages}` but are grouped in the Filament sidebar under **Attendance**. A dedicated Filament `AttendanceCluster` class lives in `app/Filament/Clusters/Attendance/`.
 
 ### Resources
 

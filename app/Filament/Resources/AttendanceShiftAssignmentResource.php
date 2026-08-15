@@ -6,6 +6,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Modules\Attendance\Filament\Clusters\Attendance\AttendanceCluster;
 use Modules\Attendance\Filament\Resources\AttendanceShiftAssignmentResource\Pages\CreateAttendanceShiftAssignment;
 use Modules\Attendance\Filament\Resources\AttendanceShiftAssignmentResource\Pages\EditAttendanceShiftAssignment;
 use Modules\Attendance\Filament\Resources\AttendanceShiftAssignmentResource\Pages\ListAttendanceShiftAssignments;
@@ -21,6 +22,8 @@ class AttendanceShiftAssignmentResource extends Resource
     protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedCalendarDays;
 
     protected static string|\UnitEnum|null $navigationGroup = NavigationGroup::ADMINISTRATION;
+
+    protected static ?string $cluster = AttendanceCluster::class;
 
     protected static ?int $navigationSort = 3;
 

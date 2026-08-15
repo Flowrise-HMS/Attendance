@@ -10,11 +10,14 @@ use Filament\Pages\SettingsPage;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Modules\Attendance\Filament\Clusters\Attendance\AttendanceCluster;
 use Modules\Attendance\Settings\AttendanceSettings;
 use Modules\Core\Enums\NavigationGroup;
 
 class ManageAttendanceSettings extends SettingsPage
 {
+    protected static ?string $cluster = AttendanceCluster::class;
+
     protected static string $settings = AttendanceSettings::class;
 
     protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedAdjustmentsHorizontal;

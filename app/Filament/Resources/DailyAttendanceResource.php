@@ -6,6 +6,7 @@ use Filament\Resources\Resource;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Modules\Attendance\Filament\Clusters\Attendance\AttendanceCluster;
 use Modules\Attendance\Filament\Resources\DailyAttendanceResource\Pages\ListDailyAttendances;
 use Modules\Attendance\Filament\Resources\DailyAttendanceResource\Tables\DailyAttendanceTable;
 use Modules\Attendance\Models\DailyAttendance;
@@ -19,6 +20,8 @@ class DailyAttendanceResource extends Resource
     protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedCheckBadge;
 
     protected static string|\UnitEnum|null $navigationGroup = NavigationGroup::ADMINISTRATION;
+
+    protected static ?string $cluster = AttendanceCluster::class;
 
     protected static ?int $navigationSort = 5;
 

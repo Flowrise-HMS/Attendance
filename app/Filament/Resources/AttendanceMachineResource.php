@@ -6,6 +6,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Modules\Attendance\Filament\Clusters\Attendance\AttendanceCluster;
 use Modules\Attendance\Filament\Resources\AttendanceMachineResource\Pages\CreateAttendanceMachine;
 use Modules\Attendance\Filament\Resources\AttendanceMachineResource\Pages\EditAttendanceMachine;
 use Modules\Attendance\Filament\Resources\AttendanceMachineResource\Pages\ListAttendanceMachines;
@@ -21,6 +22,8 @@ class AttendanceMachineResource extends Resource
     protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedFingerPrint;
 
     protected static string|\UnitEnum|null $navigationGroup = NavigationGroup::ADMINISTRATION;
+
+    protected static ?string $cluster = AttendanceCluster::class;
 
     protected static ?string $recordTitleAttribute = 'name';
 

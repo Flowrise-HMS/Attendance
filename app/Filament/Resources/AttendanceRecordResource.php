@@ -7,6 +7,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Modules\Attendance\Filament\Clusters\Attendance\AttendanceCluster;
 use Modules\Attendance\Filament\Resources\AttendanceRecordResource\Pages\EditAttendanceRecord;
 use Modules\Attendance\Filament\Resources\AttendanceRecordResource\Pages\ListAttendanceRecords;
 use Modules\Attendance\Filament\Resources\AttendanceRecordResource\Schemas\AttendanceRecordForm;
@@ -22,6 +23,8 @@ class AttendanceRecordResource extends Resource
     protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedTableCells;
 
     protected static string|\UnitEnum|null $navigationGroup = NavigationGroup::ADMINISTRATION;
+
+    protected static ?string $cluster = AttendanceCluster::class;
 
     protected static ?int $navigationSort = 4;
 

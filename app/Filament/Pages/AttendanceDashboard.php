@@ -4,6 +4,7 @@ namespace Modules\Attendance\Filament\Pages;
 
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
+use Modules\Attendance\Filament\Clusters\Attendance\AttendanceCluster;
 use Modules\Attendance\Filament\Widgets\AttendanceStatsWidget;
 use Modules\Attendance\Filament\Widgets\AttendanceTrendChartWidget;
 use Modules\Attendance\Filament\Widgets\LateVsOvertimeChartWidget;
@@ -16,6 +17,8 @@ class AttendanceDashboard extends Page
     protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedChartBar;
 
     protected static string|\UnitEnum|null $navigationGroup = NavigationGroup::ADMINISTRATION;
+
+    protected static ?string $cluster = AttendanceCluster::class;
 
     protected static ?int $navigationSort = 0;
 
