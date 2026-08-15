@@ -10,6 +10,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Context;
 use Modules\Attendance\Models\AttendanceShift;
@@ -25,7 +27,8 @@ class AttendanceShiftAssignmentForm
                 ->schema([
                     Select::make('staff_id')
                         ->label('Staff')
-                        ->relationship('staff', 'full_name')
+                        ->relationship(name: 'staff', modifyQueryUsing: fn (Builder $query) => $query->orderBy('first_name')->orderBy('last_name'))
+                        ->getOptionLabelFromRecordUsing(fn (Model $record) => $record->full_name)
                         ->searchable()
                         ->preload()
                         ->required(),

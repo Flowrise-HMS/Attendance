@@ -7,6 +7,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Modules\Attendance\Enums\PunchSource;
 use Modules\Attendance\Enums\PunchType;
 use Modules\Attendance\Enums\VerifyType;
@@ -33,8 +35,9 @@ class AttendanceRecordForm
                         ->nullable(),
                     Select::make('staff_id')
                         ->label('Staff')
-                        ->relationship('staff', 'full_name')
-                        ->searchable()
+                        ->relationship(name: 'staff', modifyQueryUsing: fn (Builder $query) => $query->orderBy('first_name')->orderBy('last_name'))
+                        ->getOptionLabelFromRecordUsing(fn (Model $record) => $record->full_name)
+                        ->searchable(['first_name', 'middle_name', 'last_name'])
                         ->preload()
                         ->nullable(),
                     Select::make('punch_type')
