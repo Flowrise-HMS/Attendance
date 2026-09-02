@@ -5,6 +5,7 @@ namespace Modules\Attendance\Filament\Resources\DailyAttendanceResource\Pages;
 use Filament\Actions\ExportAction;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Support\Facades\Auth;
+use Modules\Attendance\Filament\Exports\DailyAttendanceExporter;
 use Modules\Attendance\Filament\Resources\DailyAttendanceResource;
 
 class ListDailyAttendances extends ListRecords
@@ -15,6 +16,7 @@ class ListDailyAttendances extends ListRecords
     {
         return [
             ExportAction::make()
+                ->exporter(DailyAttendanceExporter::class)
                 ->visible(fn () => Auth::user()?->can('export_daily_attendance')),
         ];
     }
