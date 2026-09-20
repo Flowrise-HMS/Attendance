@@ -21,8 +21,11 @@ What is available:
 - **CSV import** of pen-drive exports (ZKTime and Biostar layouts) through the Filament UI
 - shifts, staff shift assignments (with overlap rejection and deterministic resolution)
 - daily computation (present/late/absent/weekend/no_shift/no_punch), late/overtime/worked minutes
-- a Filament dashboard with stat cards and charts, plus five resources and a settings page
-- a 66-test Pest suite covering ingestion, computation, commands, models, and authorization
+- a Filament dashboard with stat cards and charts, plus five resources and a settings page, all inside the **Attendance** cluster in the **Operations** sidebar group
+- staff-record tabs (Attendance records, Daily attendance) on the Staff module's resource
+- an 81-test Pest suite (11 files) covering ingestion, computation, commands, models, exporter and authorization
+
+Verified against code on 2026-09-20.
 
 Explicitly out of scope (design decision, not deferred work):
 
@@ -182,22 +185,23 @@ Schedules are defined module-side via `configureSchedules()`; no changes to `boo
 
 ## Filament UI
 
-All resources and pages are registered under the `AttendanceCluster` (slug `attendance-cluster`) via the `$cluster` property — files remain in `app/Filament/{Resources,Pages}` but are grouped in the Filament sidebar under **Attendance**. A dedicated Filament `AttendanceCluster` class lives in `app/Filament/Clusters/Attendance/`.
+All resources and pages are registered under the `AttendanceCluster` (slug `attendance-cluster`, sidebar group **Operations**, label **Attendance**, URL `/attendance-cluster`) via the `$cluster` property — files remain in `app/Filament/{Resources,Pages}` but are grouped in the Filament sidebar under **Operations → Attendance**. A dedicated Filament `AttendanceCluster` class lives in `app/Filament/Clusters/Attendance/`.
 
 ### Resources
 
 | Resource | Features |
 |----------|----------|
-| **Attendance Machines** | list with derived online/offline badge and last-seen; serial, IP/port, comm key, model, timezone, push/pull toggles; "Sync now" and "Test connection" actions |
-| **Shifts** | CRUD; overnight indicator (`end < start`); grace + overtime fields; color |
-| **Shift Assignments** | list by staff or shift; effective from/to date pickers; shift dropdown filtered to the staff's branch; overlap validation |
+| **Attendance Machines** | list (Name, Serial number, IP Address, Status online/offline badge, Last seen, PUSH, PULL); form: name, serial, IP, port, comm key, model, timezone, Accept device push / Poll device toggles, Is active; "Sync now" and "Test connection" row actions |
+| **Shifts** (menu label **Attendance Shifts**) | CRUD; columns Name, Start time, End time, Type, Break minutes, Is active; overnight indicator (`end < start`); grace + overtime fields; color |
+| **Shift Assignments** (menu label **Attendance Shift Assignments**) | list by staff or shift (Staff, Shift, Effective from, Effective to, Note); shift dropdown filtered to the staff's branch; overlap validation |
 | **Attendance Records** | raw punches: staff, badge, punched_at, machine, source, punch type, verify type; filters (date range, machine, staff, source, punch type, **unmapped**); edit/delete; **Import** toolbar action; "Link staff" action on unmapped rows |
-| **Daily Attendance** | status badges with color, worked/late/overtime columns, first-in/last-out; filters (date range, status, staff); **CSV export**; per-row status override action |
+| **Daily Attendance** (menu label **Daily Attendances**) | status badges with color, Worked / Late / OT columns, First in at / Last out at, Override; filters (Work from / Work until, Status, Staff); **Export daily attendances** CSV; per-row status override action |
 
 ### Pages & Widgets
 
-- **Attendance Dashboard** (NavigationGroup `ADMINISTRATION`): stat cards (present/late/absent/on shift today), punches-per-hour bar (today), 14-day attendance trend (area), late-vs-overtime distribution, recent clock-ins/outs table (live-polled).
-- **ManageAttendanceSettings** (NavigationGroup `SETTINGS`, Spatie `SettingsPage`).
+- **Attendance Dashboard** (first item in the cluster, slug `attendance-dashboard`): stat cards (present/late/absent/on shift today), punches-per-hour bar (today), 14-day attendance trend (area), late-vs-overtime distribution, recent clock-ins/outs table (live-polled).
+- **ManageAttendanceSettings** (navigation label **Attendance** in the cluster's Settings group, Spatie `SettingsPage`).
+- Within the cluster the resources sit in the in-cluster `ADMINISTRATION` group and the settings page in `SETTINGS`.
 
 ### Settings (`AttendanceSettings`)
 
@@ -226,10 +230,10 @@ Access is enforced two ways:
    | `import_attendance_records` | CSV import action on Attendance Records |
    | `override_daily_attendance_status` | Daily Attendance status-override action |
    | `export_daily_attendance` | Daily Attendance CSV export |
-   | `view_attendance_dashboard` | Attendance Dashboard page access |
-   | `manage_attendance_settings` | ManageAttendanceSettings page access |
 
-Pages check these directly (e.g. `AttendanceDashboard::canAccess()` → `view_attendance_dashboard`; `ManageAttendanceSettings::canAccess()` → `manage_attendance_settings`).
+   `AttendanceCustomPermissionSeeder` grants the three to `super_admin` (and to an `admin` role if one exists).
+
+3. **Page permissions** — the Attendance Dashboard and ManageAttendanceSettings pages use Filament Shield's `HasPageShield`, so access is gated by the generated `View AttendanceDashboard` / `View ManageAttendanceSettings` permissions (there are no `view_attendance_dashboard` / `manage_attendance_settings` custom permissions).
 
 **Staff "view own":** when a user cannot `ViewAny AttendanceRecord`, the Attendance Records query is scoped to their own staff profile (resolved via the existing `Staff.user_id` ↔ `users.id` mapping), and `AttendanceRecordPolicy::view()` allows viewing their own records. This is how the "staff: view own" access works — no extra permission is needed.
 
@@ -259,8 +263,8 @@ php artisan attendance:pull --machine=<uuid> # PULL one machine
 php artisan attendance:compute-daily        # recompute yesterday
 php artisan attendance:compute-daily --date=2026-08-10
 php artisan attendance:compute-daily --date=2026-08-10 --branch=<uuid> --staff=<uuid>
-php artisan attendance:reconcile-unmapped   # list punches with no linked staff
-php artisan test Modules/Attendance/tests
+php artisan attendance:reconcile-unmapped   # list punches with no linked staff (--days=30)
+php artisan test --compact Modules/Attendance/tests
 ```
 
 ### Operational notes
