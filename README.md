@@ -192,10 +192,10 @@ All resources and pages are registered under the `AttendanceCluster` (slug `atte
 | Resource | Features |
 |----------|----------|
 | **Attendance Machines** | list (Name, Serial number, IP Address, Status online/offline badge, Last seen, PUSH, PULL); form: name, serial, IP, port, comm key, model, timezone, Accept device push / Poll device toggles, Is active; "Sync now" and "Test connection" row actions |
-| **Shifts** (menu label **Attendance Shifts**) | CRUD; columns Name, Start time, End time, Type, Break minutes, Is active; overnight indicator (`end < start`); grace + overtime fields; color |
-| **Shift Assignments** (menu label **Attendance Shift Assignments**) | list by staff or shift (Staff, Shift, Effective from, Effective to, Note); shift dropdown filtered to the staff's branch; overlap validation |
+| **Shifts** | CRUD; columns Name, Start time, End time, Type, Break minutes, Is active; overnight indicator (`end < start`); grace + overtime fields; color |
+| **Shift Assignments** | list by staff or shift (Staff, Shift, Effective from, Effective to, Note); shift dropdown filtered to the staff's branch; overlap validation |
 | **Attendance Records** | raw punches: staff, badge, punched_at, machine, source, punch type, verify type; filters (date range, machine, staff, source, punch type, **unmapped**); edit/delete; **Import** toolbar action; "Link staff" action on unmapped rows |
-| **Daily Attendance** (menu label **Daily Attendances**) | status badges with color, Worked / Late / OT columns, First in at / Last out at, Override; filters (Work from / Work until, Status, Staff); **Export daily attendances** CSV; per-row status override action |
+| **Daily Attendance** | status badges with color, Worked / Late / OT columns, First in at / Last out at, Override; filters (Work from / Work until, Status, Staff); **Export daily attendances** CSV; per-row status override action |
 
 ### Pages & Widgets
 
