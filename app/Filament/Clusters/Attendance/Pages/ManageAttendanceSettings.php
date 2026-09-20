@@ -10,6 +10,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Pages\SettingsPage;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\GridDirection;
 use Filament\Support\Icons\Heroicon;
 use Modules\Attendance\Filament\Clusters\Attendance\AttendanceCluster;
 use Modules\Attendance\Settings\AttendanceSettings;
@@ -53,8 +54,17 @@ class ManageAttendanceSettings extends SettingsPage
                             ->dehydrateStateUsing(fn (?string $state): ?string => $state !== null ? $state.':00' : null)
                             ->placeholder('17:00'),
                         CheckboxList::make('weekend_days')
-                            ->options(['saturday' => 'Saturday', 'sunday' => 'Sunday', 'friday' => 'Friday', 'monday' => 'Monday', 'tuesday' => 'Tuesday', 'wednesday' => 'Wednesday', 'thursday' => 'Thursday'])
-                            ->columns(4)
+                            ->options([
+                                'monday' => 'Monday',
+                                'tuesday' => 'Tuesday',
+                                'wednesday' => 'Wednesday',
+                                'thursday' => 'Thursday',
+                                'friday' => 'Friday',
+                                'saturday' => 'Saturday',
+                                'sunday' => 'Sunday',
+                            ])
+                            ->columns(['default' => 2, 'md' => 4, 'xl' => 7])
+                            ->gridDirection(GridDirection::Row)
                             ->columnSpanFull(),
                     ]),
                 Section::make('Devices')
