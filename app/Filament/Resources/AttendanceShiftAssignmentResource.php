@@ -23,6 +23,12 @@ class AttendanceShiftAssignmentResource extends Resource
 
     protected static string|\UnitEnum|null $navigationGroup = NavigationGroup::ADMINISTRATION;
 
+    protected static ?string $navigationLabel = 'Shift Assignments';
+
+    protected static ?string $modelLabel = 'shift assignment';
+
+    protected static ?string $pluralModelLabel = 'shift assignments';
+
     protected static ?string $cluster = AttendanceCluster::class;
 
     protected static ?int $navigationSort = 3;

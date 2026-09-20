@@ -21,6 +21,12 @@ class DailyAttendanceResource extends Resource
 
     protected static string|\UnitEnum|null $navigationGroup = NavigationGroup::ADMINISTRATION;
 
+    protected static ?string $navigationLabel = 'Daily Attendance';
+
+    protected static ?string $modelLabel = 'daily attendance record';
+
+    protected static ?string $pluralModelLabel = 'daily attendance';
+
     protected static ?string $cluster = AttendanceCluster::class;
 
     protected static ?int $navigationSort = 5;
