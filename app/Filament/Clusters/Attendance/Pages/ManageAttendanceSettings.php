@@ -63,7 +63,7 @@ class ManageAttendanceSettings extends SettingsPage
                                 'saturday' => 'Saturday',
                                 'sunday' => 'Sunday',
                             ])
-                            ->columns(['default' => 2, 'md' => 4, 'xl' => 7])
+                            ->columns(['default' => 2, 'md' => 4])
                             ->gridDirection(GridDirection::Row)
                             ->columnSpanFull(),
                     ]),

@@ -59,30 +59,32 @@ class AttendanceShiftAssignmentForm
     protected static function overlapRules(): array
     {
         return [
-            function (Get $get, Field $component, string $attribute, mixed $value, Closure $fail): void {
-                $staffId = $get('staff_id');
-                if (! $staffId) {
-                    return;
-                }
+            function (Get $get, Field $component): Closure {
+                return function (string $attribute, mixed $value, Closure $fail) use ($get, $component): void {
+                    $staffId = $get('staff_id');
+                    if (! $staffId) {
+                        return;
+                    }
 
-                $from = $get('effective_from');
-                $to = $get('effective_to');
-                if (! $from) {
-                    return;
-                }
+                    $from = $get('effective_from');
+                    $to = $get('effective_to');
+                    if (! $from) {
+                        return;
+                    }
 
-                $recordId = $component->getRecord()?->id ?? '';
+                    $recordId = $component->getRecord()?->id ?? '';
 
-                $exists = AttendanceShiftAssignment::query()
-                    ->where('staff_id', $staffId)
-                    ->where('id', '!=', $recordId)
-                    ->where('effective_from', '<=', $to ?? $from)
-                    ->where(fn ($query) => $query->whereNull('effective_to')->orWhere('effective_to', '>=', $from))
-                    ->exists();
+                    $exists = AttendanceShiftAssignment::query()
+                        ->where('staff_id', $staffId)
+                        ->where('id', '!=', $recordId)
+                        ->where('effective_from', '<=', $to ?? $from)
+                        ->where(fn ($query) => $query->whereNull('effective_to')->orWhere('effective_to', '>=', $from))
+                        ->exists();
 
-                if ($exists) {
-                    $fail('This staff member already has an assignment overlapping these dates.');
-                }
+                    if ($exists) {
+                        $fail('This staff member already has an assignment overlapping these dates.');
+                    }
+                };
             },
         ];
     }
